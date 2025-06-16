@@ -5,9 +5,13 @@ from processes.additon import ProcessAdd
 from processes.multiplication import ProcessMult
 from processes.division import ProcessDiv
 from graph import Graph
+from input import get_integer_list
 
 # Processes
-graph = Graph([2, 2, 3, 4])
+
+numbers = get_integer_list()
+
+graph = Graph(numbers)
 
 p_start = Process(START)
 
