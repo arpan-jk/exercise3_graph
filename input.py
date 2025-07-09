@@ -16,5 +16,5 @@ def get_integer_list():
             print("Invalid input. Please enter only integers.\n")
 
 # Example usage
-numbers = get_integer_list()
-print("You entered:", numbers)
+# numbers = get_integer_list()
+# print("You entered:", numbers)

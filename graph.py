@@ -20,14 +20,24 @@ class Graph:
         retry_count = {}
 
         def dfs(process_name: str) -> int | None:
+            result = None
+            retry_count[process_name] = retry_count.get(process_name, 1)
+         
+            move_to_other = False
+            if retry_count[process_name] > MAX_ATTEMPT:
+                move_to_other = True
+
+
             if process_name not in self.processes:
                 print(f"[Error] Process '{process_name}' not found.")
                 return None
             elif process_name == END:
                 return self.array
 
-            process = self.processes[process_name]
-            result = process.run(self.array)
+            if move_to_other == False:
+                process = self.processes[process_name]
+                result = process.run(self.array)
+
 
             if result is not None:
                 random_int = get_random_number()
@@ -35,31 +45,28 @@ class Graph:
                 self.array.append(random_int)
                 print(f"[GRAPH] new list = {self.array}")
 
-          
 
-            retry_count[process_name] = retry_count.get(process_name, 1)
-            
-           
 
             for condition, next_process in self.edges.get(process_name, []):
-                if retry_count[process_name] < MAX_ATTEMPT and condition(result):
+                if move_to_other == True and next_process != process_name:
+                    dfs(next_process)
+                elif move_to_other == True and next_process == process_name:
+                    print("[GRAPH] Max attempt reached. Moving to next process.")
+                    continue
+                elif move_to_other == False and condition(result):
                     if next_process == process_name:
                         retry_count[process_name] += 1
-                    else :
-                        return dfs(next_process)
-                    # return dfs(next_process)
-                elif retry_count[process_name] >= MAX_ATTEMPT:
-                    print(f"[GRAPH] Max attempt reached for {process_name}.Moving to the next process")
-                    continue
+                    dfs(next_process)
                 else:
-                    print("[GRAPH] Moving to next process")
                     continue
-                
-                return dfs(next_process)
+                     
+                      
+               
+
 
             return result
 
         print("[GRAPH] started dfs")
-        final_result = dfs(start_process)
+        dfs(start_process)
         print("[GRAPH] ended dfs")
-        print(f"[RESULT] = {final_result}")
+        print(f"[RESULT] = {self.array}")
