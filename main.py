@@ -1,4 +1,3 @@
-
 from utils import START,END,ADD,MULT,DIV,move_direct,is_even,is_odd
 from processes.process import Process
 from processes.additon import ProcessAdd
@@ -6,7 +5,7 @@ from processes.multiplication import ProcessMult
 from processes.division import ProcessDiv
 from graph import Graph
 
-# Processes
+
 graph = Graph([2, 2, 3, 4])
 
 p_start = Process(START)
