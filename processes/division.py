@@ -9,4 +9,5 @@ class ProcessDiv(Process):
         result = inputs[0] // inputs[-1]
         self.print_result(result)
         self.end()
+        result=None
         return result

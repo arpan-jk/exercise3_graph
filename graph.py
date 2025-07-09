@@ -5,8 +5,8 @@ from utils import END,get_random_number,MAX_ATTEMPT
 class Graph:
     def __init__(self, input_array: list[int]):
         self.processes: dict[str, Process] = {}
-        self.edges: dict[str, list[tuple[callable, str]]] = {}
-        self.array = input_array.copy()  # to avoid side effects
+        self.edges: dict[str, list[tuple[callable, str]]] = {} #can go to that node only when the callable function is satisfied
+        self.array = input_array  
 
     def add_process(self, name: str, process: Process):
         self.processes[name] = process
@@ -17,11 +17,12 @@ class Graph:
 
     def run(self, start_process: str):
 
-        retry_count = {}
+        retry_count = {} #if > MAX_ATTEMPT, send to the next process
 
         def dfs(process_name: str) -> int | None:
             result = None
-            retry_count[process_name] = retry_count.get(process_name, 1)
+            if retry_count.get(process_name) is None:
+                retry_count[process_name] = 1
          
             move_to_other = False
             if retry_count[process_name] > MAX_ATTEMPT:

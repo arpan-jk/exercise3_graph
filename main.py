@@ -12,9 +12,8 @@ numbers = get_integer_list()
 
 graph = Graph(numbers)
 
-p_start = Process(START)
 
-graph.add_process(START, p_start)
+graph.add_process(START, Process(START))
 graph.add_process(END, Process(END))
 graph.add_process(ADD, ProcessAdd(ADD))
 graph.add_process(MULT, ProcessMult(MULT))
