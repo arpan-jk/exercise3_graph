@@ -2,10 +2,8 @@ def get_integer_list():
     while True:
         user_input = input("Enter at least 2 integers separated by spaces (last number should not be 0): ")
         try:
-            # Convert input to list of integers
             int_list = [int(x) for x in user_input.strip().split()]
             
-            # Check conditions
             if len(int_list) < 2:
                 print("Please enter at least 2 integers.\n")
             elif int_list[-1] == 0:
